@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Meetings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Meeting</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meetings.each do |meeting| %>
+      <tr>
+        <td><%= meeting.meeting %></td>
+        <td><%= link_to 'Show', meeting %></td>
+        <td><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
+        <td><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<a href="https://zoom.us/oauth/authorize?response_type=code&client_id=LFkqqeVlSPuJeT1mLGVsPA&redirect_uri=http://localhost:3000/">geberate token</a>
+<%= link_to 'New Meeting', new_meeting_path %>
+
+<a href="/all_schedule_meetings/live" class="btn btn-info">Live Meetings</a>
+<a href="/all_schedule_meetings/scheduled" class="btn btn-info">Schedule Meetings</a>
+<a href="/all_schedule_meetings/upcoming" class="btn btn-info">Upcoming Meetings</a>

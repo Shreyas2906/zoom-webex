@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+
+
+<%= form_with(model: meeting, local: true) do |form| %>
+  <% if meeting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+
+      <ul>
+        <% meeting.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.datetime_field :start_time %>
+  </div>
+
+
+  <div class="field">
+  <%= form.label :end_date_time %>
+  <%= form.datetime_field :end_date_time %>
+  </div>
+
+   <div class="field">
+    <%= form.label :end_times %>
+    <%= form.time_field :end_times %>
+  </div>
+
+  <div class="field">
+    <%= form.label :topic %>
+    <%= form.text_field :topic %>
+  </div>
+
+  <div class="field">
+  <%= form.label :duration %>
+  <%= form.text_field :duration %>
+  </div>
+
+
+ <div class="field">
+  <%= form.label :timezone %>
+  <%= form.text_field :timezone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.text_field :type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :meeting_type %>
+    <select name="meeting[meeting_type]" >
+    <option value="1">Daily</option>
+    <option value="2">Weekly</option>
+    <option value="3">Monthly</option>
+    </select>
+  </div>
+
+ <div class="field">
+  <%= form.label :monthly_day %>
+    <select name="meeting[monthly_day]">
+    <%= (1..31).each do |daa| %>
+    <option><%= daa %></option>
+   <% end %>
+  </select>
+</div>
+
+ <div class="field">
+    <%= form.label :monthly_week %>
+    <select name="meeting[monthly_week]" >
+      <option value="-1">Last week of the month</option>
+      <option value="1">First week of the month</option>
+      <option value="2">Second week of the month</option>
+      <option value="3"> Third week of the month</option>
+      <option value="4"> Fourth week of the month</option>
+    </select>
+  </div>
+
+<div class="field">
+    <%= form.label :monthly_week_day %>
+    <select data-live-search="true" data-live-search-style="startsWith" class="selectpicker" multiple="multiple" name="meeting[monthly_week_day]" >
+      <option value="1">Sunday</option>
+      <option value="2">Monday</option>
+      <option value="3">Tuesday</option>
+      <option value="4">Wednesday</option>
+      <option value="5">Thursday</option>
+      <option value="6">Friday</option>
+      <option value="7">Saturday</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <%= form.label :weekly_days %>
+    <select data-live-search="true" data-live-search-style="startsWith" class="selectpicker" multiple="multiple" name="meeting[weekly_days]" >
+      <option value="1">Sunday</option>
+      <option value="2">Monday</option>
+      <option value="3">Tuesday</option>
+      <option value="4">Wednesday</option>
+      <option value="5">Thursday</option>
+      <option value="6">Friday</option>
+      <option value="7">Saturday</option>
+    </select>
+  </div>
+
+ 
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

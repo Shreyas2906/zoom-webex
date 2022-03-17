@@ -1,0 +1,2 @@
+class EventProvider < ApplicationRecord
+end

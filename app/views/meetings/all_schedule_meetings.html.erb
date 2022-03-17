@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<a href="/all_schedule_meetings/live" class="btn btn-info">Live Meetings</a>
+<a href="/all_schedule_meetings/schedule" class="btn btn-info">Schedule Meetings</a>
+<a href="/all_schedule_meetings/upcoming" class="btn btn-info">Upcoming Meetings</a>
+<h1>All Meetings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>host_id</th>
+      <th>topic</th>
+      <th>type</th>
+      <th>start_time</th>
+      <th>duration</th>
+      <th>timezone</th>
+      <th>join_url</th>
+      <!-- <th colspan="3"></th> -->
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meetings["meetings"].each do |meeting| %>
+      <tr>
+        <td><%= meeting["id"] %></td>
+        <td><%= meeting["host_id"] %></td>
+        <td><%= meeting["topic"] %></td>
+        <td><%= meeting["type"] %></td>
+        <td><%= meeting["start_time"] %></td>
+        <td><%= meeting["duration"] %></td>
+        <td><%= meeting["timezone"] %></td>
+        <td><a href="<%= meeting["join_url"] %>" target=_blank>Meeting Link</a></td>
+        <%#= link_to 'Show', meeting %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<td><a href="https://api.zoom.us/v2/users/#{user_id}/meetings?type=scheduled"></a></td>
+
+<br>
+
+<a href="https://zoom.us/oauth/authorize?response_type=code&client_id=LFkqqeVlSPuJeT1mLGVsPA&redirect_uri=http://localhost:3000/">geberate token</a>
+<%= link_to 'New Meeting', new_meeting_path %>
