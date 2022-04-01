@@ -10,16 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_10_073010) do
+ActiveRecord::Schema.define(version: 2022_04_01_081127) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "event_providers", force: :cascade do |t|
     t.string "refresh_token"
     t.string "access_token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "web_refresh_token"
+    t.string "web_access_token"
   end
 
   create_table "meetings", force: :cascade do |t|
+    t.string "meeting"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "webs", force: :cascade do |t|
     t.string "meeting"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

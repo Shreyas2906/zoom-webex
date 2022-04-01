@@ -98,13 +98,13 @@ def all_schedule_meetings
 
       request.body = {"topic": params[:meeting][:topic], "type": params[:meeting][:type].to_i, "start_time": params[:meeting][:start_time], "duration": params[:meeting][:duration], "timezone": params[:meeting][:timezone], "recurrence": {"end_date_time": params[:meeting][:end_date_time], "monthly_day": params[:meeting][:monthly_day].to_i, "monthly_week": params[:meeting][:monthly_week].to_i, "monthly_week_day": params[:meeting][:monthly_week_day].to_i, "repeat_interval": 0, "type": params[:meeting][:meeting_type].to_i, "weekly_days": params[:meeting][:week_days]}}.to_json
       response = https.request(request)
-      byebug
+      
       puts response.read_body
       response_data = JSON.parse(response.read_body)
       Meeting.create(meeting: response_data["join_url"])  
        redirect_to "/meetings"
     # rescue Exception => e
-    #   byebug
+    #   
     #   { error: e.message }
     # end
   end

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  resources :webs
   resources :meetings
-  root 'meetings#index'
+  root 'webs#index'
+
+
+  
 
   get "/all_meetings", to: "meetings#all_meetings"
   get "/all_schedule_meetings/:type", to: "meetings#all_schedule_meetings"

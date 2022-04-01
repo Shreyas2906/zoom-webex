@@ -1,0 +1,59 @@
+<%= form_with(model: web, local: true) do |form| %>
+  <% if web.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(web.errors.count, "error") %> prohibited this web from being saved:</h2>
+
+      <ul>
+        <% web.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :agenda %>
+    <%= form.text_field :agenda %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start %>
+    <%= form.datetime_field :start %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end %>
+    <%= form.datetime_field :end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :enabledAutoRecordMeeting %>
+    <select name="enabledAutoRecordMeeting" >
+    <option value="1">True</option>
+    <option value="2">False</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <%= form.label :allowAnyUserToBeCoHost %>
+    <select name="web[allowAnyUserToBeCoHost]" >
+     <option value="1">True</option>
+    <option value="2">False</option>
+    </select>
+  </div>
+ 
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
