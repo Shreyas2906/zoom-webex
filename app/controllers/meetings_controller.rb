@@ -16,7 +16,7 @@ def all_schedule_meetings
     https.use_ssl = true
     https.read_timeout = 1
     request = Net::HTTP::Get.new(url)
-    auth_header = Base64.strict_encode64("LFkqqeVlSPuJeT1mLGVsPA:y2gpfvraVx6XH0T7tq95P6UZ3X8QwbzY")
+    auth_header = Base64.strict_encode64(ENV["ZOOM_CLIENT_ID"]:ENV["ZOOM_SECRET"])
     request["Content-Type"] = "application/atom+xml"
     request["Authorization"] = "Bearer #{@access_token}"
     all_meetings = https.request(request)
@@ -33,7 +33,7 @@ def all_schedule_meetings
       https.use_ssl = true
       https.read_timeout = 1
       request = Net::HTTP::Post.new(url)
-      auth_header = Base64.strict_encode64("LFkqqeVlSPuJeT1mLGVsPA:y2gpfvraVx6XH0T7tq95P6UZ3X8QwbzY")
+      auth_header = Base64.strict_encode64(ENV["ZOOM_CLIENT_ID"]:ENV["ZOOM_SECRET"])
       request["Content-Type"] = "application/atom+xml"
       request["Authorization"] = "Basic #{auth_header}"
       response = https.request(request)
