@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  resources :homes
   resources :webs
   resources :meetings
-  root 'webs#index'
+  root 'homes#index'
 
 
   

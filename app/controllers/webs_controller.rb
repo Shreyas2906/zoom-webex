@@ -1,5 +1,5 @@
 class WebsController < ApplicationController
-  before_action :set_web, only: %i[ show edit update destroy ]
+  # before_action :set_web, only: %i[ show edit update destroy ]
 
   # GET /webs or /webs.json
   
@@ -9,6 +9,7 @@ def all_schedule_meetings
   end
 
   def index
+    @webs = Web.all
     if params[:code].present?
       require "uri"
       require "net/http"
@@ -22,30 +23,29 @@ def all_schedule_meetings
       request["Content-Type"] = "application/json"
       request["Authorization"] = "Bearer M2RhNDI2MjAtOGYzMy00NjIyLTg4Y2UtY2IwYThjZTQyNjIwMThiZWZkZTEtZjI4_P0A1_a5f91689-712e-402d-aa9f-0e4101389783"
       request.body = JSON.dump({
-      "client_id": "C5ec2f12bc1d9ba792540a19b85ca31dd28a4ae6f56de9223a51ae125a742dcc8",
-      "client_secret": "011828d196945d5da46c47eeb9c1a4b9c803a0e73352f98ab913adb3855ffa8b",
+      "client_id": ENV["CLIENT_ID"],
+      "client_secret": ENV["CLIENT_SECRET"],
       "code": "#{params[:code]}",
-      "redirect_uri": "http://localhost:3000",
+      "redirect_uri": root_path,
       "grant_type": "authorization_code"
       })
 
       response = https.request(request)
       puts response.read_body
     end
-    require "uri"
-    require "net/http"
-    url = URI("https://webexapis.com/v1/meetings")
-    https = Net::HTTP.new(url.host, url.port)
-    https.use_ssl = true
-    request = Net::HTTP::Get.new(url)
-    request["Content-Type"] = "application/json"
-    request["Authorization"] = "Bearer OGJhOTUyZGEtMWM5NS00NWVhLTgxZTYtMDJhZDg0MDE2ODY3ZmVjZmNjYWEtNDky_P0A1_a5f91689-712e-402d-aa9f-0e4101389783"
-    request["Cookie"] = "trackingSessionID=DAFAE70AD187420FAA7E74027D80AAB8"
-    request.body = "{\n    \"title\": \"Example Daily Meeting\",\n    \"agenda\": \"Example Agenda\",\n    \"password\": \"BgJep@43\",\n    \"start\": \"2022-04-02T20:30:00-08:00\",\n    \"end\": \"2022-04-02T20:50:00-08:00\",\n    \"enabledAutoRecordMeeting\": false,\n    \"allowAnyUserToBeCoHost\": false\n}"
-    response = https.request(request)
-    puts response.read_body
-    @webs = JSON.parse(response.read_body)["items"]
-
+      require "uri"
+      require "net/http"
+      url = URI("https://webexapis.com/v1/meetings")
+      https = Net::HTTP.new(url.host, url.port)
+      https.use_ssl = true
+      request = Net::HTTP::Get.new(url)
+      request["Content-Type"] = "application/json"
+      request["Authorization"] = "Bearer OGJhOTUyZGEtMWM5NS00NWVhLTgxZTYtMDJhZDg0MDE2ODY3ZmVjZmNjYWEtNDky_P0A1_a5f91689-712e-402d-aa9f-0e4101389783"
+      request["Cookie"] = "trackingSessionID=DAFAE70AD187420FAA7E74027D80AAB8"
+      # request.body = "{\n    \"title\": \"Example Daily Meeting\",\n    \"agenda\": \"Example Agenda\",\n    \"password\": \"BgJep@43\",\n    \"start\": \"2022-04-02T20:30:00-08:00\",\n    \"end\": \"2022-04-02T20:50:00-08:00\",\n    \"enabledAutoRecordMeeting\": false,\n    \"allowAnyUserToBeCoHost\": false\n}"
+      response = https.request(request)
+      puts response.read_body
+      @webs = JSON.parse(response.read_body)["items"]
 
   end
 
@@ -73,7 +73,6 @@ def all_schedule_meetings
 
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
-
     request = Net::HTTP::Post.new(url)
     request["Content-Type"] = "application/json"
     request["Authorization"] = "Bearer OGJhOTUyZGEtMWM5NS00NWVhLTgxZTYtMDJhZDg0MDE2ODY3ZmVjZmNjYWEtNDky_P0A1_a5f91689-712e-402d-aa9f-0e4101389783"
@@ -107,13 +106,20 @@ def all_schedule_meetings
 
   # DELETE /webs/1 or /webs/1.json
   def destroy
-    @web.destroy
-
-    respond_to do |format|
-      format.html { redirect_to webs_url, notice: "Web was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    require "uri"
+    require "net/http"
+    url = URI("https://webexapis.com/v1/meetings/#{params[:id]}")
+    https = Net::HTTP.new(url.host, url.port)
+    https.use_ssl = true
+    request = Net::HTTP::Delete.new(url)
+    request["Authorization"] = "Bearer M2RhNDI2MjAtOGYzMy00NjIyLTg4Y2UtY2IwYThjZTQyNjIwMThiZWZkZTEtZjI4_P0A1_a5f91689-712e-402d-aa9f-0e4101389783"
+    request["Cookie"] = "trackingSessionID=11A97E57788C4AB98AE29868186079C0"
+    response = https.request(request)
+    puts response.read_body
+    redirect_to "/webs"
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

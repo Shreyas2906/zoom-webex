@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_01_081127) do
+ActiveRecord::Schema.define(version: 2022_04_04_075723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 2022_04_01_081127) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "web_refresh_token"
     t.string "web_access_token"
+  end
+
+  create_table "homes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "meetings", force: :cascade do |t|

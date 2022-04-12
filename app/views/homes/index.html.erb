@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Homes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>HostName</th>
+      <th>Meeting</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @webs.each do |web| %>
+      <tr>
+        <td><%= web["hostDisplayName"]%></td>
+        <td><%= web["webLink"] %></td>
+        <td><%= link_to 'Destroy', "/webs/#{web["id"]}", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<a href="/meetings">Zoom</a>
+<a href="/webs">Webex</a>
+
+<%= link_to 'New Home', new_home_path %>
